@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alongamento Diário - SESC Campo Mourão</title>
+    <title>Alongamento Diário - SESC/CIPA - Campo Mourão</title>
     <style>
         * {
             margin: 0;
@@ -817,7 +817,7 @@
                 <h2>Participe Todos os Dias!</h2>
                 <p>Sua saúde é nossa prioridade. Encontre-se conosco às 8h da manhã para iniciar o dia com mais
                     disposição, energia e prevenindo lesões ocupacionais.</p>
-                <p><strong>Local:</strong> Pátio central do SESC Campo Mourão</p>
+                <p><strong>Local:</strong> Sala Multifuncional do SESC Campo Mourão</p>
                 <button class="cta-button" onclick="confirmParticipation()">Confirmar Presença</button>
             </div>
         </div>
@@ -834,7 +834,7 @@
                 <div class="footer-section">
                     <h4>Programa de Alongamento</h4>
                     <p>Todos os dias às 8h da manhã</p>
-                    <p>Pátio central da unidade</p>
+                    <p>Sala Multifuncional da unidade</p>
                 </div>
                 <div class="footer-section">
                     <h4>CIPA - NR5</h4>
@@ -896,7 +896,7 @@
 
             // Toca um som de notificação (se suportado pelo navegador)
             if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance('Atenção colaboradores! Hora do alongamento diário no pátio central!');
+                const utterance = new SpeechSynthesisUtterance('Atenção colaboradores! Hora do alongamento diário na Sala Multifuncional!');
                 utterance.lang = 'pt-BR';
                 utterance.volume = 0.8;
                 speechSynthesis.speak(utterance);
