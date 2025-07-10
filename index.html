@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alongamento Diário - SESC Campo Mourão</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1e3c72;
+            text-decoration: none;
+        }
+
+        .location {
+            font-size: 14px;
+            color: #666;
+            background: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        .timer {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 5px 15px rgba(238, 90, 36, 0.4);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        main {
+            margin-top: 120px;
+            padding: 40px 0;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .management-section {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 40px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .management-section h2 {
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .management-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .management-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .management-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .management-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .management-card .position {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .management-card .description {
+            font-size: 0.95em;
+            opacity: 0.8;
+        }
+
+        .nr5-info {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .nr5-info h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .area-card {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            transition: all 0.3s ease;
+            border-top: 4px solid;
+        }
+
+        .area-card:nth-child(1) {
+            animation-delay: 0.1s;
+            border-top-color: #3498db;
+        }
+
+        .area-card:nth-child(2) {
+            animation-delay: 0.2s;
+            border-top-color: #e74c3c;
+        }
+
+        .area-card:nth-child(3) {
+            animation-delay: 0.3s;
+            border-top-color: #2ecc71;
+        }
+
+        .area-card:nth-child(4) {
+            animation-delay: 0.4s;
+            border-top-color: #9b59b6;
+        }
+
+        .area-card:nth-child(5) {
+            animation-delay: 0.5s;
+            border-top-color: #f39c12;
+        }
+
+        .area-card:nth-child(6) {
+            animation-delay: 0.6s;
+            border-top-color: #1abc9c;
+        }
+
+        .area-card:nth-child(7) {
+            animation-delay: 0.7s;
+            border-top-color: #34495e;
+        }
+
+        .area-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .area-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .area-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            text-align: center;
+        }
+
+        .area-card .description {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.05em;
+            text-align: center;
+        }
+
+        .work-tools {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .work-tools h5 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .tools-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tool-tag {
+            background: #e9ecef;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #495057;
+        }
+
+        .exercises {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .exercises h5 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .exercise-list {
+            list-style: none;
+        }
+
+        .exercise-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+            position: relative;
+            padding-left: 30px;
+            font-size: 1.05em;
+        }
+
+        .exercise-list li:before {
+            content: "🧘";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .exercise-list li:last-child {
+            border-bottom: none;
+        }
+
+        .benefits {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 50px;
+            border-radius: 25px;
+            margin: 40px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefits h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.8em;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .benefit-item:hover {
+            transform: scale(1.05);
+        }
+
+        .benefit-item h3 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .benefit-item h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px;
+            margin: 40px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 2.5em;
+        }
+
+        .cta p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(238, 90, 36, 0.4);
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(238, 90, 36, 0.6);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .notification {
+            position: fixed;
+            top: 140px;
+            right: 20px;
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 15px;
+            display: none;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
+            z-index: 1001;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .stretch-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            display: none;
+            z-index: 1002;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .stretch-alert h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .stretch-alert button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .areas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .management-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <a href="#" class="logo">SESC</a>
+                    <div class="location">Campo Mourão - PR</div>
+                </div>
+                <div class="timer" id="timer">
+                    Próximo alongamento: --:--:--
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="hero">
+                <h1>Benefícios do Alongamento</h1>
+                <p>Iniciativa diária às 8h da manhã para saúde e bem-estar dos colaboradores</p>
+                <p><strong>Serviço Social do Comércio - Unidade Campo Mourão</strong></p>
+            </div>
+
+            <div class="management-section">
+                <h2>Responsáveis pelo Programa</h2>
+                <div class="management-grid">
+                    <div class="management-card">
+                        <h3>Thiana Jo Anne Costa</h3>
+                        <div class="position">Gerente da Unidade</div>
+                        <div class="description">Apoio e Liberação</div>
+                    </div>
+                    <div class="management-card">
+                        <h3>Adauto Costa Silva</h3>
+                        <div class="position">Representante CIPA</div>
+                        <div class="description">Responsável pela implementação e acompanhamento das diretrizes de
+                            segurança conforme NR5.</div>
+                    </div>
+                    <div class="management-card">
+                        <h3>Claudia Bisol</h3>
+                        <div class="position">Representante CIPA</div>
+                        <div class="description">Responsável pela implementação e acompanhamento das diretrizes de
+                            segurança conforme NR5.</div>
+                    </div>
+
+                    <div class="management-card">
+                        <h3>Cezar Augusto Ribeiro</h3>
+                        <div class="position">Representante de Atividades Físicas</div>
+                        <div class="description">Responsável pelo acompanhamento e implementação do alongamento</div>
+                    </div>
+
+                    <div class="management-card">
+                        <h3>Ariadne Santos Luciano Sarti</h3>
+                        <div class="position">Representante de Atividades Físicas</div>
+                        <div class="description">Responsável pelo acompanhamento e implementação do alongamento</div>
+                    </div>
+
+                    <div class="management-card">
+                        <h3>Sonia Mara Lima</h3>
+                        <div class="position">Representante Auxiliar da Saúde</div>
+                        <div class="description">Responsável pelo acompanhamento e implementação do alongamento</div>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="nr5-info">
+                    <h4>📋 Norma Regulamentadora NR5 - CIPA</h4>
+                    <p>Este programa está em conformidade com a NR5, que estabelece diretrizes para prevenção de
+                        acidentes e doenças relacionadas ao trabalho, promovendo a saúde e segurança dos trabalhadores
+                        através de medidas preventivas como o exercícios de alongamento.</p>
+                </div>
+
+
+
+
+            </div>
+
+            <div class="areas-grid">
+                <div class="area-card">
+                    <div class="area-icon">🍽️</div>
+                    <h3>Nutrição (Cozinha)</h3>
+                    <div class="description">Profissionais que preparam e servem refeições, enfrentando longas jornadas
+                        em pé e movimentos repetitivos.</div>
+                    <div class="work-tools">
+                        <h5>Atividades Principais:</h5>
+                        <div class="tools-list">
+                            <span class="tool-tag">Preparo de alimentos</span>
+                            <span class="tool-tag">Trabalho em pé</span>
+                            <span class="tool-tag">Movimentos repetitivos</span>
+                            <span class="tool-tag">Manuseio de equipamentos</span>
+                        </div>
+                    </div>
+                    <div class="exercises">
+                        <h5>Exercícios Específicos:</h5>
+                        <ul class="exercise-list">
+                            <li>Alongamento de lombar e coluna</li>
+                            <li>Flexão e extensão de tornozelos</li>
+                            <li>Rotação de punhos e dedos</li>
+                            <li>Alongamento de pernas e panturrilhas</li>
+                            <li>Mobilização de ombros</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-icon">👨‍🏫</div>
+                    <h3>Ensino (Professores)</h3>
+                    <div class="description">Educadores que desenvolvem atividades pedagógicas e recreativas,
+                        necessitando de energia e disposição física.</div>
+                    <div class="work-tools">
+                        <h5>Atividades Principais:</h5>
+                        <div class="tools-list">
+                            <span class="tool-tag">Ensino</span>
+                            <span class="tool-tag">Atividades recreativas</span>
+                            <span class="tool-tag">Demonstrações práticas</span>
+                            <span class="tool-tag">Postura dinâmica</span>
+                        </div>
+                    </div>
+                    <div class="exercises">
+                        <h5>Exercícios Específicos:</h5>
+                        <ul class="exercise-list">
+                            <li>Alongamento de pescoço e trapézio</li>
+                            <li>Rotação de braços e ombros</li>
+                            <li>Flexão lateral do tronco</li>
+                            <li>Alongamento de quadríceps</li>
+                            <li>Mobilização da coluna vertebral</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-icon">💻</div>
+                    <h3>Técnicos e Auxiliares (Administrativos)</h3>
+                    <div class="description">Profissionais que trabalham predominantemente com
+                        computadores, documentos e elaboração de projetos.</div>
+                    <div class="work-tools">
+                        <h5>Ferramentas de Trabalho:</h5>
+                        <div class="tools-list">
+                            <span class="tool-tag">Computadores</span>
+                            <span class="tool-tag">Projetos</span>
+                            <span class="tool-tag">Atividades</span>
+                            <span class="tool-tag">Documentação</span>
+                        </div>
+                    </div>
+                    <div class="exercises">
+                        <h5>Exercícios Específicos:</h5>
+                        <ul class="exercise-list">
+                            <li>Alongamento de pescoço (lateral e frontal)</li>
+                            <li>Rotação e flexão de punhos</li>
+                            <li>Extensão de coluna vertebral</li>
+                            <li>Alongamento de ombros e deltoides</li>
+                            <li>Exercícios para os olhos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-icon">🤝</div>
+                    <h3>Ação Social</h3>
+                    <div class="description">Profissionais que prestam assistência social e orientação à comunidade,
+                        utilizando telefone e computador.</div>
+                    <div class="work-tools">
+                        <h5>Ferramentas de Trabalho:</h5>
+                        <div class="tools-list">
+                            <span class="tool-tag">Telefone</span>
+                            <span class="tool-tag">Computadores</span>
+                            <span class="tool-tag">Atendimento social</span>
+                            <span class="tool-tag">Documentação</span>
+                        </div>
+                    </div>
+                    <div class="exercises">
+                        <h5>Exercícios Específicos:</h5>
+                        <ul class="exercise-list">
+                            <li>Alongamento cervical e occipital</li>
+                            <li>Mobilização de punhos e dedos</li>
+                            <li>Alongamento de músculos do pescoço</li>
+                            <li>Exercícios para ombros tensos</li>
+                            <li>Relaxamento da musculatura facial</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-icon">📞</div>
+                    <h3>Atendimento ao Cliente</h3>
+                    <div class="description">Profissionais responsáveis pelo atendimento e suporte aos clientes,
+                        trabalhando com computadores e telefone.</div>
+                    <div class="work-tools">
+                        <h5>Ferramentas de Trabalho:</h5>
+                        <div class="tools-list">
+                            <span class="tool-tag">Computadores</span>
+                            <span class="tool-tag">Telefone</span>
+                            <span class="tool-tag">Sistemas de atendimento</span>
+                            <span class="tool-tag">Documentação</span>
+                        </div>
+                    </div>
+                    <div class="exercises">
+                        <h5>Exercícios Específicos:</h5>
+                        <ul class="exercise-list">
+                            <li>Alongamento de pescoço e nuca</li>
+                            <li>Rotação de ombros e braços</li>
+                            <li>Flexão e extensão de punhos</li>
+                            <li>Alongamento de músculos da face</li>
+                            <li>Exercícios de respiração</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-icon">🏋️</div>
+                    <h3>Academia (Exercícios)</h3>
+                    <div class="description">Profissionais de educação física e instrutores que orientam e demonstram
+                        exercícios físicos.</div>
+                    <div class="work-tools">
+                        <h5>Atividades Principais:</h5>
+                        <div class="tools-list">
+                            <span class="tool-tag">Exercícios físicos</span>
+                            <span class="tool-tag">Demonstrações</span>
+                            <span class="tool-tag">Orientação</span>
+                            <span class="tool-tag">Atividades dinâmicas</span>
+                        </div>
+                    </div>
+                    <div class="exercises">
+                        <h5>Exercícios Específicos:</h5>
+                        <ul class="exercise-list">
+                            <li>Alongamento dinâmico de membros</li>
+                            <li>Rotação articular completa</li>
+                            <li>Alongamento de quadríceps e isquiotibiais</li>
+                            <li>Mobilização de coluna vertebral</li>
+                            <li>Aquecimento cardiovascular leve</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-icon">🧹</div>
+                    <h3>Serviços Gerais (Limpeza)</h3>
+                    <div class="description">Profissionais responsáveis pela limpeza e manutenção das instalações,
+                        realizando atividades físicas variadas.</div>
+                    <div class="work-tools">
+                        <h5>Atividades Principais:</h5>
+                        <div class="tools-list">
+                            <span class="tool-tag">Limpeza</span>
+                            <span class="tool-tag">Manutenção</span>
+                            <span class="tool-tag">Movimentos variados</span>
+                            <span class="tool-tag">Esforço físico</span>
+                        </div>
+                    </div>
+                    <div class="exercises">
+                        <h5>Exercícios Específicos:</h5>
+                        <ul class="exercise-list">
+                            <li>Alongamento de coluna lombar</li>
+                            <li>Flexão e extensão de joelhos</li>
+                            <li>Rotação de tronco e quadril</li>
+                            <li>Alongamento de braços e antebraços</li>
+                            <li>Mobilização de articulações</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="benefits">
+                <h2>Benefícios do Alongamento Diário</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <h3>🚀</h3>
+                        <h4>Aumento da Produtividade</h4>
+                        <p>Músculos relaxados proporcionam maior foco e concentração nas atividades</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h3>🛡️</h3>
+                        <h4>Prevenção de Lesões</h4>
+                        <p>Reduz significativamente os riscos de LER, DORT e lesões musculares</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h3>😌</h3>
+                        <h4>Redução do Estresse</h4>
+                        <p>Momento de relaxamento que diminui a tensão e melhora o bem-estar</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h3>🏃</h3>
+                        <h4>Melhora da Postura</h4>
+                        <p>Contribui para o alinhamento corporal e redução de dores nas costas</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h3>❤️</h3>
+                        <h4>Melhora Circulatória</h4>
+                        <p>Estimula a circulação sanguínea e reduz o inchaço dos membros</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h3>⚡</h3>
+                        <h4>Mais Energia</h4>
+                        <p>Ativa o metabolismo e proporciona maior disposição para o trabalho</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta">
+                <h2>Participe Todos os Dias!</h2>
+                <p>Sua saúde é nossa prioridade. Encontre-se conosco às 8h da manhã para iniciar o dia com mais
+                    disposição, energia e prevenindo lesões ocupacionais.</p>
+                <p><strong>Local:</strong> Pátio central do SESC Campo Mourão</p>
+                <button class="cta-button" onclick="confirmParticipation()">Confirmar Presença</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>SESC Campo Mourão</h4>
+                    <p>Serviço Social do Comércio</p>
+                    <p>Promovendo saúde e bem-estar</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Programa de Alongamento</h4>
+                    <p>Todos os dias às 8h da manhã</p>
+                    <p>Pátio central da unidade</p>
+                </div>
+                <div class="footer-section">
+                    <h4>CIPA - NR5</h4>
+                    <p>Comissão Interna de Prevenção de Acidentes</p>
+                    <p>Adauto Costa Silva & Claudia Bisol</p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #444; padding-top: 20px; margin-top: 20px;">
+                <p>&copy; 2025 SESC Campo Mourão - Todos os direitos reservados</p>
+                <p>Gerência: Thiana Jo Anne Costa | CIPA: Conforme NR5</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="notification" id="notification">
+        ✅ Presença confirmada! Nos vemos amanhã às 8h na Sala Multifuncional!
+    </div>
+
+    <div class="stretch-alert" id="stretchAlert">
+        <h3>🎯 Hora do Alongamento!</h3>
+        <p>Reúna-se na Sala Multifuncional para o alongamento diário</p>
+        <p><strong>Todos os colaboradores são bem-vindos!</strong></p>
+        <button onclick="closeStretchAlert()">Entendido</button>
+    </div>
+
+    <script>
+        // Função para calcular o tempo até o próximo alongamento (8h da manhã)
+        function updateTimer() {
+            const now = new Date();
+            const nextStretch = new Date();
+
+            // Define para 8h da manhã
+            nextStretch.setHours(8, 0, 0, 0);
+
+            // Se já passou das 8h hoje, programa para amanhã
+            if (now > nextStretch) {
+                nextStretch.setDate(nextStretch.getDate() + 1);
+            }
+
+            const diff = nextStretch - now;
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const timerElement = document.getElementById('timer');
+            timerElement.textContent = `Próximo alongamento: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+            // Verifica se é exatamente 8h da manhã
+            if (now.getHours() === 8 && now.getMinutes() === 0 && now.getSeconds() <= 5) {
+                showStretchAlert();
+            }
+        }
+
+        // Função para mostrar alerta de alongamento
+        function showStretchAlert() {
+            const alert = document.getElementById('stretchAlert');
+            alert.style.display = 'block';
+
+            // Toca um som de notificação (se suportado pelo navegador)
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance('Atenção colaboradores! Hora do alongamento diário no pátio central!');
+                utterance.lang = 'pt-BR';
+                utterance.volume = 0.8;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Função para fechar o alerta de alongamento
+        function closeStretchAlert() {
+            const alert = document.getElementById('stretchAlert');
+            alert.style.display = 'none';
+        }
+
+        // Função para confirmar participação
+        function confirmParticipation() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+
+            // Salva a confirmação no armazenamento local da sessão
+            const today = new Date().toDateString();
+            sessionStorage.setItem('participationConfirmed', today);
+
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 4000);
+        }
+
+        // Função para verificar se já confirmou participação hoje
+        function checkParticipationStatus() {
+            const today = new Date().toDateString();
+            const confirmed = sessionStorage.getItem('participationConfirmed');
+
+            if (confirmed === today) {
+                const button = document.querySelector('.cta-button');
+                button.textContent = 'Presença Confirmada ✓';
+                button.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
+                button.disabled = true;
+            }
+        }
+
+        // Animação de entrada dos cards
+        function animateCards() {
+            const cards = document.querySelectorAll('.area-card');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Efeito de paralaxe suave no scroll
+        function parallaxEffect() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        }
+
+        // Função para destacar a área de trabalho baseada no horário
+        function highlightWorkArea() {
+            const hour = new Date().getHours();
+            const cards = document.querySelectorAll('.area-card');
+
+            // Remove destaque anterior
+            cards.forEach(card => {
+                card.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.1)';
+            });
+
+            // Destaca área baseada no horário (exemplo de lógica)
+            if (hour >= 7 && hour <= 9) {
+                // Horário do alongamento - destaca todas as áreas
+                cards.forEach(card => {
+                    card.style.boxShadow = '0 15px 35px rgba(255, 107, 107, 0.3)';
+                });
+            }
+        }
+
+        // Função para mostrar estatísticas de participação (simulada)
+        function showParticipationStats() {
+            const areas = ['Nutrição', 'Ensino', 'Técnicos', 'Ação Social', 'Atendimento', 'Academia', 'Serviços Gerais'];
+            const stats = areas.map(area => ({
+                area: area,
+                participation: Math.floor(Math.random() * 30) + 70 // 70-100% participação
+            }));
+
+            console.log('Estatísticas de Participação no Alongamento:', stats);
+        }
+
+        // Função para criar efeitos visuais dinâmicos
+        function createDynamicEffects() {
+            // Adiciona efeito de hover aprimorado nos cards
+            const cards = document.querySelectorAll('.area-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-15px) scale(1.02)';
+                    this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.2)';
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.1)';
+                });
+            });
+
+            // Adiciona efeito nos cards de gestão
+            const managementCards = document.querySelectorAll('.management-card');
+            managementCards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-10px) rotateY(5deg)';
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0) rotateY(0deg)';
+                });
+            });
+        }
+
+        // Função para verificar se é um dia útil
+        function isWorkDay() {
+            const today = new Date().getDay();
+            return today >= 1 && today <= 5; // Segunda a sexta
+        }
+
+        // Função para ajustar mensagens baseadas no dia
+        function adjustMessagesForDay() {
+            const timerElement = document.getElementById('timer');
+
+            if (!isWorkDay()) {
+                timerElement.textContent = 'Próximo alongamento: Segunda-feira às 8h';
+                timerElement.style.background = 'linear-gradient(45deg, #95a5a6, #7f8c8d)';
+            }
+        }
+
+        // Inicialização quando a página carrega
+        document.addEventListener('DOMContentLoaded', function () {
+            // Funções principais
+            updateTimer();
+            setInterval(updateTimer, 1000);
+
+            // Verificações e configurações
+            checkParticipationStatus();
+            adjustMessagesForDay();
+
+            // Animações e efeitos
+            animateCards();
+            createDynamicEffects();
+
+            // Efeito de paralaxe no scroll
+            window.addEventListener('scroll', parallaxEffect);
+
+            // Destaque de área por horário
+            highlightWorkArea();
+            setInterval(highlightWorkArea, 60000); // Atualiza a cada minuto
+
+            // Estatísticas (para desenvolvimento)
+            showParticipationStats();
+        });
+
+        // Verifica se é horário de alongamento a cada 30 segundos
+        setInterval(() => {
+            const now = new Date();
+            if (now.getHours() === 8 && now.getMinutes() === 0 && isWorkDay()) {
+                showStretchAlert();
+            }
+        }, 30000);
+
+        // Função para feedback de exercícios (futura implementação)
+        function provideFeedback(exerciseType) {
+            const feedbacks = {
+                'neck': 'Lembre-se de fazer movimentos lentos e controlados ao alongar o pescoço.',
+                'wrist': 'Mantenha os dedos relaxados durante a rotação dos punhos.',
+                'back': 'Respire profundamente durante o alongamento das costas.',
+                'general': 'Nunca force o alongamento além do confortável.'
+            };
+
+            return feedbacks[exerciseType] || feedbacks.general;
+        }
+
+        // Adiciona listener para teclas de atalho
+        document.addEventListener('keydown', function (e) {
+            // Ctrl + Alt + S para mostrar alerta de alongamento (para testes)
+            if (e.ctrlKey && e.altKey && e.key === 's') {
+                e.preventDefault();
+                showStretchAlert();
+            }
+        });
+    </script>
+</body>
+
+</html>
